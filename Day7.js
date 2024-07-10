@@ -26,7 +26,16 @@ function changeStatus(name, status) {
     todoList[changeIndex] = { name: name, status: status, priority: checkPriority };
 }
 function addTask(name) {
-    todoList.push({ name: name, status: statusList.IS_TODO, priority: priorityList.IS_LOW });
+    try {
+        if (3 > name.length || name.length > 30) {
+            throw new Error("Недпустимая длина строки");
+        }
+        todoList.push({ name: name, status: statusList.IS_TODO, priority: priorityList.IS_LOW });
+    } catch (error) {
+        console.error(error.message);
+    } finally {
+        console.log("Функция прошла проверку")
+    }
 }
 function deleteTask(name) {
     const deleteIndex = todoList.findIndex(nameTask => nameTask.name == name);
@@ -85,12 +94,13 @@ function showList() {
         progress.splice(deleteIndex, 1);
     }
 }
-showList();
-console.log("---------------------")
-changeStatus('create a post', statusList.IS_DONE);
-addTask("make the bed");
-deleteTask("test");
-showList();
-console.log("---------------------")
-deleteTask('create a post');
-showList();
+// showList();
+// console.log("---------------------")
+// changeStatus('create a post', statusList.IS_DONE);
+// addTask("make the bed");
+addTask("Go");
+// deleteTask("test");
+// showList();
+// console.log("---------------------")
+// deleteTask('create a post');
+// showList();
